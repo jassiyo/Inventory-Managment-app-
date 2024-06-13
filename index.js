@@ -2,6 +2,7 @@ import express from 'express';
 import ProductController from "./SRC/CONTROLER/Product.controller.js";
 import path from "path"
 import expressEjsLayouts from 'express-ejs-layouts';
+import { Validation } from './SRC/MIDDLEWARES/FormValidation.middleware.js';
 // const express = require("express");
 
 
@@ -18,7 +19,7 @@ const productsController = new ProductController
 
 server.get("/", productsController.getProducts);
 server.get('/new', productsController.getAddForm);
-server.post('/', productsController.addNewProduct);
+server.post('/', Validation, productsController.addNewProduct);
 
 server.use(express.static('SRC/VIEW'))
 
